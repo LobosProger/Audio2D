@@ -38,7 +38,7 @@ public class Audio2D : MonoBehaviour
 	//! We don't using IEnumerators, because they require allocations
 	private void Update()
 	{
-		if (!assignAudioListener && Time.fixedTime >= lastTime + 0.1f)
+		if (!assignAudioListener && Time.fixedTime >= lastTime + 0.083f)
 		{
 			lastTime = Time.fixedTime;
 			ChangeAudioVolume();
@@ -48,6 +48,7 @@ public class Audio2D : MonoBehaviour
 	//* Just calculating volume
 	private void ChangeAudioVolume()
 	{
-		source.volume = LobosRoboticsFunctions.Map(0, 1 * attemptedVolumeInStart, source.maxDistance, source.minDistance, Vector2.Distance(transform.position, listener.transform.position));
+		float distance = (transform.position - listener.transform.position).sqrMagnitude;
+		source.volume = Mathf.Lerp(0, 1 * attemptedVolumeInStart, Mathf.InverseLerp(source.maxDistance * source.maxDistance, source.minDistance * source.minDistance, distance));
 	}
 }
