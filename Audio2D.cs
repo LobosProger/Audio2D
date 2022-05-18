@@ -48,7 +48,7 @@ public class Audio2D : MonoBehaviour
 	//* Just calculating volume
 	private void ChangeAudioVolume()
 	{
-		float distance = (transform.position - listener.transform.position).sqrMagnitude;
+		float distance = ((Vector2)(transform.position - listener.transform.position)).sqrMagnitude;
 		source.volume = Mathf.Lerp(0, 1 * attemptedVolumeInStart, Mathf.InverseLerp(source.maxDistance * source.maxDistance, source.minDistance * source.minDistance, distance));
 	}
 }
